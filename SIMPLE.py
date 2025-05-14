@@ -1,9 +1,15 @@
+'''
+Created by Suriya Dhakshinamoorthy (2025).
+This code implements the SIMPLE algorithm for solving the
+steady-state, incompressible Navier-Stokes equations for 
+a 2D lid-driven cavity flow problem
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import lil_matrix
 from scipy.sparse.linalg import spsolve
 from bicgstab_solver import bicgstab
-
 
 # Grid parameters
 nx_cells = 100
@@ -213,6 +219,8 @@ while SIMPLE_conv_error > SIMPLE_tol and SIMPLE_iter_count < SIMPLE_iter_max:
             print("[WARNING] retry also failed. Falling back to direct solver…")
             pc_internal = spsolve(A, b_vec)
 
+    pc[1:ny+1, 1:nx+1] = pc_internal.reshape((ny, nx))
+    
     # Update pressure and velocity fields
     p[1:ny+1, 1:nx+1] += alpha_p * pc[1:ny+1, 1:nx+1]
     u_star[1:ny+1, 1:nx] += (dy / aPu[1:ny+1, 1:nx]) * (pc[1:ny+1, 2:nx+1] - pc[1:ny+1, 1:nx])
