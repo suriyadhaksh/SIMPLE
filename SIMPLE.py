@@ -1,8 +1,29 @@
 '''
 Created by Suriya Dhakshinamoorthy (2025).
+https://github.com/suriyadhaksh/SIMPLE.git
 This code implements the SIMPLE algorithm for solving the
 steady-state, incompressible Navier-Stokes equations for 
 a 2D lid-driven cavity flow problem
+
+Config parameters:
+    - nx_cells: Number of cells in the x-direction
+    - ny_cells: Number of cells in the y-direction
+    - Re: Reynolds number
+    - alpha_u: Under-relaxation factor for u-velocity
+    - alpha_v: Under-relaxation factor for v-velocity
+    - alpha_p: Under-relaxation factor for pressure
+    - momentum_gs_iter_max: Maximum iterations for Gauss-Seidel
+    - bicgstab_iter_max: Maximum iterations for BiCGStab
+    - bicgstab_tol: Tolerance for BiCGStab
+    - SIMPLE_iter_max: Maximum iterations for SIMPLE
+    - SIMPLE_tol: Tolerance for SIMPLE convergence
+
+Output:
+    - Results are saved in a .npz file containing the following grid and velocity fields
+    - X, Y: Meshgrid for the cell center grid 
+    - p: Pressure field at cell centers
+    - u: u-velocity at cell centers
+    - v: v-velocity at cell centers
 '''
 
 import numpy as np
@@ -10,6 +31,8 @@ import matplotlib.pyplot as plt
 from scipy.sparse import lil_matrix
 from scipy.sparse.linalg import spsolve
 from bicgstab_solver import bicgstab
+
+################ ---------------- CONFIGURATION --------- #######################
 
 # Grid parameters
 nx_cells = 100
@@ -29,6 +52,8 @@ bicgstab_iter_max = 1000
 bicgstab_tol = 1e-8
 SIMPLE_iter_max = 10000
 SIMPLE_tol = 1e-8
+
+############### ---------------- END OF CONFIGURATION --------- #######################
 
 print("[STAT] Starting SIMPLE solver")
 print(f"[STAT] Grid size: {nx_cells} x {ny_cells}")
