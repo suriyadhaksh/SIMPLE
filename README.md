@@ -10,8 +10,7 @@ This repository implements the SIMPLE (Semi-Implicit Method for Pressure-Linked 
 * [Running the Solver](#running-the-solver)
 * [Output and Usage](#output-and-usage)
 * [Postprocessing](#postprocessing)
-* [Contributing](#contributing)
-* [License](#license)
+* [Contact](#Contact)
 
 ## Overview
 
